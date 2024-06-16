@@ -6,7 +6,6 @@
 ## Authors / Discord's
 
 - [@nurmolo]()
-- [@.damc]()
 
 ## What comes with it?
 
