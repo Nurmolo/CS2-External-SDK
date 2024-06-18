@@ -12,9 +12,6 @@
 - A ioctl driver.
 - Get module bases
 - Get Procid
-- Overlay -- NOT implemented
-- Vectors -- NOT implemented
-- Math -- NOT implemented
-## Features
-
-- Not implemented
+- Overlay -
+- Vectors
+- Math
