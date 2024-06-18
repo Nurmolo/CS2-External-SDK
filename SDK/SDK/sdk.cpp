@@ -104,10 +104,10 @@ void sdk::setupoffsets()
 {
     player test;
     clientdll = sdk::get_module_base(sdk::pid, L"client.dll");
-    sdk::player::localplayer = memory::read_memory<uintptr_t>(sdk::driver, sdk::clientdll + client_dll::dwLocalPlayerPawn);
-    sdk::player::health = memory::read_memory<uintptr_t>(sdk::driver, sdk::clientdll + player::localplayer + client_dll::C_BaseEntity::m_iHealth);
-    sdk::player::teamnum = memory::read_memory<uintptr_t>(sdk::driver, sdk::clientdll + player::localplayer + client_dll::C_BaseEntity::m_iTeamNum);
-    sdk::player::m_lifeState = memory::read_memory<uintptr_t>(sdk::driver, sdk::clientdll + player::localplayer + client_dll::C_BaseEntity::m_lifeState);
+    sdk::player::localplayer = memory::read<uintptr_t>(sdk::driver, sdk::clientdll + client_dll::dwLocalPlayerPawn);
+    sdk::player::health = memory::read<uintptr_t>(sdk::driver, sdk::clientdll + player::localplayer + client_dll::C_BaseEntity::m_iHealth);
+    sdk::player::teamnum = memory::read<uintptr_t>(sdk::driver, sdk::clientdll + player::localplayer + client_dll::C_BaseEntity::m_iTeamNum);
+    sdk::player::m_lifeState = memory::read<uintptr_t>(sdk::driver, sdk::clientdll + player::localplayer + client_dll::C_BaseEntity::m_lifeState);
     logger::info("Got all memory address! Printing...");
     cout << "[" << logger::getcurrenttime() << "]" << "| " << "Local Player : 0x" << player::localplayer << endl;
     cout << "[" << logger::getcurrenttime() << "]" << "| " << "Local Player Health : 0x" << player::health << endl;
@@ -165,7 +165,7 @@ void sdk::initdriver()
     }
     logger::success("Created a handle to driver!");
     logger::info("Attaching to process");
-    memory::attach_to_process(sdk::driver, sdk::pid);
+    memory::attach(sdk::driver, sdk::pid);
     // no error checking cause admin check limits the issues add yourself (;
     logger::success("Attached to process!");
 }

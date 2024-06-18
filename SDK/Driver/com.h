@@ -46,7 +46,7 @@ namespace com {
         SIZE_T return_size;
     };
      // change 2 static if errors
-    bool attach_to_process(HANDLE driver_handle, const DWORD pid) {
+    bool attach(HANDLE driver_handle, const DWORD pid) {
         Request r;
         r.process_id = reinterpret_cast<HANDLE>(pid);
 
@@ -55,7 +55,7 @@ namespace com {
     }
 
     template <class T>
-    T read_memory(HANDLE driver_handle, const std::uintptr_t addr) {
+    T read(HANDLE driver_handle, const std::uintptr_t addr) {
         T temp = {};
 
         Request r;
@@ -69,7 +69,7 @@ namespace com {
     }
 
     template <class T>
-    void write_memory(HANDLE driver_handle, const std::uintptr_t addr, const T& value) {
+    void write(HANDLE driver_handle, const std::uintptr_t addr, const T& value) {
         Request r;
         r.target = reinterpret_cast<PVOID>(addr);
         r.buffer = (PVOID)&value;
