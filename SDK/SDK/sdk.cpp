@@ -1,5 +1,10 @@
 #include "sdk.h"
 #include "../Driver/com.h"
+// patch
+uintptr_t sdk::player::localplayer = 0;
+uintptr_t sdk::player::health = 0;
+uintptr_t sdk::player::teamnum = 0;
+uintptr_t sdk::player::m_lifeState = 0;
 
 BOOL sdk::IsElevated() {
     /* Credits to breached
@@ -97,11 +102,12 @@ uintptr_t sdk::setupmodules()
 
 void sdk::setupoffsets()
 {
-    sdk::clientdll = sdk::get_module_base(sdk::pid, L"client.dll");
-    player::localplayer = memory::read_memory<uintptr_t>(sdk::driver, sdk::clientdll + client_dll::dwLocalPlayerPawn);
-    player::health = memory::read_memory<uintptr_t>(sdk::driver, sdk::clientdll + player::localplayer + client_dll::C_BaseEntity::m_iHealth);
-    player::teamnum = memory::read_memory<uintptr_t>(sdk::driver, sdk::clientdll + player::localplayer + client_dll::C_BaseEntity::m_iTeamNum);
-    player::m_lifeState = memory::read_memory<uintptr_t>(sdk::driver, sdk::clientdll + player::localplayer + client_dll::C_BaseEntity::m_lifeState);
+    player test;
+    clientdll = sdk::get_module_base(sdk::pid, L"client.dll");
+    sdk::player::localplayer = memory::read_memory<uintptr_t>(sdk::driver, sdk::clientdll + client_dll::dwLocalPlayerPawn);
+    sdk::player::health = memory::read_memory<uintptr_t>(sdk::driver, sdk::clientdll + player::localplayer + client_dll::C_BaseEntity::m_iHealth);
+    sdk::player::teamnum = memory::read_memory<uintptr_t>(sdk::driver, sdk::clientdll + player::localplayer + client_dll::C_BaseEntity::m_iTeamNum);
+    sdk::player::m_lifeState = memory::read_memory<uintptr_t>(sdk::driver, sdk::clientdll + player::localplayer + client_dll::C_BaseEntity::m_lifeState);
     logger::info("Got all memory address! Printing...");
     cout << "[" << logger::getcurrenttime() << "]" << "| " << "Local Player : 0x" << player::localplayer << endl;
     cout << "[" << logger::getcurrenttime() << "]" << "| " << "Local Player Health : 0x" << player::health << endl;
